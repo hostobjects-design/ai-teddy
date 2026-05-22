@@ -1,21 +1,25 @@
 import streamlit as st
 import google.generativeai as genai
+import os
 
-# 🔥 1. BILKUL NAYI KEY YAHAN DALEIN
-API_KEY = "AIzaSyD4uxYA_UC9apPycCTdgPMZGXYkxVsgGWc"
+# 1. API KEY
+API_KEY = "AIzaSyAYOyor9kZgffny4hKahYqn1S9lQyTLJ_I"
 
-# 🔥 2. ZABARDASTI VERSION SET KARNA
+# 🔥 YE LINE VERSION KA MASLA KHATAM KAR DEGI
+os.environ["GOOGLE_API_USE_MTLS"] = "never" 
+
 genai.configure(api_key=API_KEY)
 
-st.title("🧸 Teddy is BACK!")
+st.title("🧸 Teddy is Online!")
 
-user_input = st.text_input("Kuch likhen:")
+user_input = st.text_input("Kuch bhi likho:")
 
-if st.button("Talk"):
-    try:
-        # Hum sirf 'gemini-1.5-flash' likhenge, Google khud version sambhal lega
-        model = genai.GenerativeModel('gemini-1.5-flash')
-        response = model.generate_content(user_input)
-        st.write(response.text)
-    except Exception as e:
-        st.error(f"Error detail: {e}")
+if st.button("Talk to Teddy"):
+    if user_input:
+        try:
+            # Hum model ka pura naam likhenge version ke saath
+            model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
+            response = model.generate_content(user_input)
+            st.success(f"Teddy: {response.text}")
+        except Exception as e:
+            st.error(f"Abhi bhi masla hai: {e}")
