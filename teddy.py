@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 
 # 1. API Key Yahan Dalein
-API_KEY = st.secrets["API_KEY"]
+API_KEY = "AIzaSyA_aap_ki_asli_key_yahan"
 
 # 2. Setup
 genai.configure(api_key=API_KEY)
