@@ -2,10 +2,13 @@ import streamlit as st
 import google.generativeai as genai
 
 # 🔥 1. APNI KEY YAHAN DALEIN
-API_KEY = "AIzaSyD8xqVMekksePqJXciCXsXe0L91bn6HvP0"
+API_KEY = "AIzaSyCQXGzVOl5TcM7uYkdq2WCEOUV2gCbF_SM"
 
 # 2. Setup
-genai.configure(api_key=API_KEY)
+try:
+    genai.configure(api_key=API_KEY)
+except Exception as e:
+    st.error(f"Configuration Error: {e}")
 
 # 3. Website Design
 st.set_page_config(page_title="Magic Teddy", page_icon="🧸")
@@ -19,11 +22,12 @@ if st.button("Teddy se Poocho ✨"):
     if user_input:
         with st.spinner("Teddy soch raha hai..."):
             try:
-                # Model setup aur response
-                model =model = genai.GenerativeModel('gemini-pro')
+                # 🛑 HUMNE YAHAN 'gemini-1.5-flash-latest' ISTEMAL KIYA HAI
+                model = genai.GenerativeModel('models/gemini-1.5-flash-latest')
                 response = model.generate_content(f"Talk like a cute teddy bear in Urdu/Roman Urdu: {user_input}")
                 st.success(f"Teddy: {response.text}")
             except Exception as e:
-                st.error(f"Oho! Masla agaya hai: {e}")
+                # Agar phir bhi masla aaye to ye error dikhayega
+                st.error(f"Teddy thak gaya hai. Masla: {e}")
     else:
         st.warning("Pehle kuch likho to sahi!")
