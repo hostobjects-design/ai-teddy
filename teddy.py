@@ -1,32 +1,21 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. NAYI API KEY YAHAN DALEIN
-API_KEY = "AIzaSyD7sOKbKkDyMt2AF58c_vFwieylBE0b2Sw"
+# 🔥 1. BILKUL NAYI KEY YAHAN DALEIN
+API_KEY = "AIzaSyD4uxYA_UC9apPycCTdgPMZGXYkxVsgGWc"
 
-# 2. Setup (Force Latest)
+# 🔥 2. ZABARDASTI VERSION SET KARNA
 genai.configure(api_key=API_KEY)
 
-st.set_page_config(page_title="Magic Teddy", page_icon="🧸")
-st.title("🧸 Magic Teddy Talks")
+st.title("🧸 Teddy is BACK!")
 
-user_input = st.text_input("Teddy se baat karein:", placeholder="Kuch likhen...")
+user_input = st.text_input("Kuch likhen:")
 
-if st.button("Poocho ✨"):
-    if user_input:
-        with st.spinner("Teddy soch raha hai..."):
-            try:
-                # Hum model ka naam bilkul simple rakhenge
-                model = genai.GenerativeModel('gemini-1.5-flash')
-                response = model.generate_content(user_input)
-                st.success(f"Teddy 🧸: {response.text}")
-            except Exception as e:
-                # Agar error aaye to hum 'gemini-1.5-pro' try karenge
-                try:
-                    model = genai.GenerativeModel('gemini-1.5-pro')
-                    response = model.generate_content(user_input)
-                    st.success(f"Teddy 🧸: {response.text}")
-                except Exception as e2:
-                    st.error(f"Abhi bhi masla hai: {e2}")
-    else:
-        st.warning("Pehle kuch likhen!")
+if st.button("Talk"):
+    try:
+        # Hum sirf 'gemini-1.5-flash' likhenge, Google khud version sambhal lega
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(user_input)
+        st.write(response.text)
+    except Exception as e:
+        st.error(f"Error detail: {e}")
