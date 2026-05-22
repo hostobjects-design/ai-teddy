@@ -1,23 +1,28 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 🔥 APNI GOOGLE API KEY YAHAN PASTE KARO 🔥
-GOOGLE_API_KEY = "AIzaSyB9R_l61ky561NZnLaw01KQp3pPIGpDIm0"
+# 1. API Key Yahan Dalein
+API_KEY = "AIzaSyCzmVkwxC6kujjvWA1AwnxzBl-Bl7RocGs"
 
-genai.configure(api_key=GOOGLE_API_KEY)
+# 2. Setup
+genai.configure(api_key=API_KEY)
+model = genai.GenerativeModel('gemini-pro')
 
-st.set_page_config(page_title="Magic Teddy Talks", page_icon="🧸")
+# 3. Website Design
+st.set_page_config(page_title="Magic Teddy", page_icon="🧸")
+st.title("🧸 Magic Teddy Talks")
+st.write("Main ek jaaduai Teddy hoon! Mujhse kuch bhi poocho.")
 
-st.markdown("<h1 style='text-align: center; color: #FFCC00;'>🧸 MAGIC TEDDY TALKS 🧸</h1>", unsafe_allow_html=True)
+# 4. Input aur Output
+user_input = st.text_input("Aapka Sawal:", placeholder="Yahan likhein...")
 
-sawaal = st.text_input("Teddy se baatein karo...", placeholder="Yahan kuch likho...")
-
-if st.button("Teddy Ko Btao 🗣️"):
-    if sawaal:
+if st.button("Teddy se Poocho ✨"):
+    if user_input:
         with st.spinner("Teddy soch raha hai..."):
             try:
-            model = genai.GenerativeModel('gemini-pro')
-                response = model.generate_content(f"You are a friendly Teddy Bear. Reply in Urdu/Roman Urdu: {sawaal}")
-                st.success(f"Teddy 🧸: {response.text}")
+                response = model.generate_content(f"Talk like a cute teddy bear in Urdu/Roman Urdu: {user_input}")
+                st.success(f"Teddy: {response.text}")
             except Exception as e:
-                st.error(f"Masla agaya hai: {e}")
+                st.error("Oho! Teddy thak gaya hai. Shayad API Key ka masla hai.")
+    else:
+        st.warning("Pehle kuch likho to sahi!")
