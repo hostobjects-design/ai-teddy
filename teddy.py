@@ -16,7 +16,7 @@ if st.button("Teddy Ko Btao 🗣️"):
     if sawaal:
         with st.spinner("Teddy soch raha hai..."):
             try:
-                model = genai.GenerativeModel('gemini-pro')')
+                model = genai.GenerativeModel('gemini-pro')
                 response = model.generate_content(f"You are a friendly Teddy Bear. Reply in Urdu/Roman Urdu: {sawaal}")
                 st.success(f"Teddy 🧸: {response.text}")
             except Exception as e:
