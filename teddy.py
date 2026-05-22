@@ -1,10 +1,10 @@
 import streamlit as st
-from google import genai
+import google.generativeai as genai
 
 # 🔥 APNI GOOGLE API KEY YAHAN PASTE KARO 🔥
-GOOGLE_API_KEY = "AIzaSyB8Dxuf1w9L_kQEYQSPe2cpyXIW_Da-iwQ"
+GOOGLE_API_KEY = "AIzaSyBSjLKR0cjpxHvXQLBPLnaXJtGcIR9u_h4"
 
-client = genai.Client(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=GOOGLE_API_KEY)
 
 st.set_page_config(page_title="Magic Teddy Talks", page_icon="🧸")
 
@@ -16,8 +16,8 @@ if st.button("Teddy Ko Btao 🗣️"):
     if sawaal:
         with st.spinner("Teddy soch raha hai..."):
             try:
-                prompt = f"You are a friendly Teddy Bear. Reply in Urdu/Roman Urdu: {sawaal}"
-                response = client.models.generate_content(model='gemini-2.0-flash', contents=prompt)
+                model = genai.GenerativeModel('gemini-1.5-flash')
+                response = model.generate_content(f"You are a friendly Teddy Bear. Reply in Urdu/Roman Urdu: {sawaal}")
                 st.success(f"Teddy 🧸: {response.text}")
             except Exception as e:
-                st.error("API Key ka masla hai!")
+                st.error("API Key ka masla hai ya internet slow hai!")
