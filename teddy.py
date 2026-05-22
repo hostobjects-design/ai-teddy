@@ -1,35 +1,33 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. APNI KEY YAHAN DALEIN
-API_KEY = "AIzaSyB8mG9_5XVEyGmSVvP8UR15WEXoGRdGLk8"
+# 1. API Key (Inverted commas ke andar)
+API_KEY = "AIzaSyDpmgwJPValy-amQ8q3vh1LcP91gueJUCY"
 
-# 2. Setup
-genai.configure(api_key=API_KEY)
+# 2. Setup (Force Version v1)
+try:
+    genai.configure(api_key=API_KEY)
+    # Hum specific model name use kar rahe hain jo v1 par chalta hai
+    model = genai.GenerativeModel(model_name="gemini-1.5-flash")
+except Exception as e:
+    st.error(f"Setup Error: {e}")
 
-# 3. Website Design
+# 3. Design
 st.set_page_config(page_title="Magic Teddy", page_icon="🧸")
 st.title("🧸 Magic Teddy Talks")
-st.write("Main ek jaaduai Teddy hoon! Mujhse baatein karo.")
 
-# 4. Input
-user_input = st.text_input("Teddy se kuch poocho:", placeholder="Yahan likhein...")
+user_input = st.text_input("Teddy se baat karein:", placeholder="Kuch likhen...")
 
-if st.button("Teddy se Poocho ✨"):
+if st.button("Poocho ✨"):
     if user_input:
         with st.spinner("Teddy soch raha hai..."):
             try:
-                # Is baar hum simple 'gemini-1.5-flash' use karenge bina kisi extra path ke
-                model = genai.GenerativeModel('gemini-1.5-flash')
+                # Direct call
                 response = model.generate_content(user_input)
-                st.success(f"Teddy: {response.text}")
+                st.success(f"Teddy 🧸: {response.text}")
             except Exception as e:
-                # Agar phir bhi masla ho, to hum doosra model try karenge automatically
-                try:
-                    model = genai.GenerativeModel('gemini-pro')
-                    response = model.generate_content(user_input)
-                    st.success(f"Teddy (Backup): {response.text}")
-                except Exception as e2:
-                    st.error(f"Oho! Dono models nahi chale. Error: {e2}")
+                # Agar phir bhi 404 aaye, to ye last option try karega
+                st.error(f"Error: {e}")
+                st.info("Mashwara: Google AI Studio se aik NAYI API Key bana kar try karein.")
     else:
-        st.warning("Pehle kuch likho to sahi!")
+        st.warning("Pehle kuch likhen!")
