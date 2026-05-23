@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # 1. Nayi API Key yahan dalein
-API_KEY = "AIzaSyCWudDDz96djZViqkTj8skhdeMNYLyITVc"
+API_KEY = "AIzaSyCKJCRCw5gyfUz9mFLjM3w5HtgJyqip9y0"
 
 st.set_page_config(page_title="Magic Teddy", page_icon="🧸")
 st.title("🧸 Magic Teddy")
