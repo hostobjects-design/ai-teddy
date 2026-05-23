@@ -17,7 +17,7 @@ if st.button("Poocho ✨"):
     if user_msg:
         try:
             # 2026 model call
-            model = genai.GenerativeModel('gemini-1.5-flash')
+            model_name="gemini-1.5-flash"
             response = model.generate_content(f"Talk like a cute teddy bear in Urdu: {user_msg}")
             
             st.info(f"Teddy: {response.text}")
